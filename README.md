@@ -32,3 +32,5 @@ Later I'll upload another archive, that establishes an entry point at the beginn
 The 3rd stage is building towards the fs-uae target, and most of this building will be done using compiler optimizations in the ateempt to speed up binary/library runtime execution. When the same functionality is achievered wrt the functionality AmiDeb establishes on the same hardware, them I might find out if anything was gained, whether X and fs-uae run any better.
 
 If then comparative testing proves the effort was worth it, then a final cutdown binary archive can be created, perhaps replace many base shell programs with a busybox installation, remove any binaries/libraries not mission critical to the working system. 
+
+Sounds like phun, lets see what happens B^) 
