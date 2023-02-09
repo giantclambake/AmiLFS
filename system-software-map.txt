@@ -1,0 +1,78 @@
+//this is WIP in real now time
+
+Take it as a given, you're going to need X, but you don't need a full build of X
+
+https://wiki.x.org/wiki/ModuleDescriptions/#corex11runtime
+
+That's not the absolute minimum, but the easiest to successfully compile;
+
+https://www.linuxfromscratch.org/blfs/view/svn/x/installing.html
+
+One has to build all of that (I'm doing it in chroot as mentioned), satisfying requried dependencies as they arise.
+
+As it is now today, there's no fs-uae target in BLFS to build from, so one has to divine the dependency tracking.
+
+Hmm...there's an over-sight there ~ the fs-uae source package here -> https://fs-uae.net/download#source  ...contains an INSTALL text file that points the reader back to docs/compiling.md .... which doesn't exist in that tarball =) This is why chroot inside an operating host system is so handy, because here I can git clone the fs-uae repo on the host, to figure it out ; said file is in the git tree ...
+
+### Debian / Ubuntu
+
+Install dependencies for bootstrapping and building FS-UAE:
+
+    sudo apt install autoconf automake build-essential gettext \
+    libfreetype6-dev libglew-dev libglib2.0-dev libjpeg-dev libmpeg2-4-dev \
+    libopenal-dev libpng-dev libsdl2-dev libsdl2-ttf-dev libtool libxi-dev \
+    libxtst-dev zip zlib1g-dev
+
+Note: Due to the fact LFS based builds compile from source archives, all the required development headers/files are installed along the way ~ thus we have no package manager, and no '-dev' packages, so for the sake of the list above we strip the '-dev' suffix, and look for these packages on BLFS. Most of the dependencies here have been met as a  result of building the base system, and some of the dependencies here will be satisfied, by building and installing X.
+
+Other packages and their dependancies need to be sourced and compiled/installed, before we get to fs-uae ...
+
+https://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/general/zip.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/general/libjpeg.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/general/libpng.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/x/glew.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/multimedia/libmpeg2.html
+
+**libopenal does not have an existing BLFS entry
+//Try...  http://deb.debian.org/debian/pool/main/o/openal-soft/openal-soft_1.19.1.orig.tar.gz
+
+https://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
+
+
+
+>>> libopenal <<<
+
+This is common SOP for BLFS building. As a specific debian package is being cited and there's no BLFS entry, instead you cite the Debian repo
+
+https://packages.debian.org/bullseye/libopenal-dev
+
+Here you will find 2 resources 
+
+- the source archive location  http://deb.debian.org/debian/pool/main/o/openal-soft/openal-soft_1.19.1.orig.tar.gz 
+
+- the location of a debian specific package build specs http://deb.debian.org/debian/pool/main/o/openal-soft/openal-soft_1.19.1-2.debian.tar.xz
+
+Sometimes, due to changes in gcc and/or glib, some packages won't compile. Often these problems have been addressed by debian patches, and this can be a sane quick fix solution when things don't compile. In this spec archive, I see no patches were employed, so it should compile as simply as any other source archive needing no special treatment ; we move this into the above list.
+
+Sound:: https://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa.html ...this will appear as an optional dependency of the SDL2 build and install. This should probably happen at the top of the above list, as libmpeg2 will rope it in if present...add to list.
+
+Note: As you compile for the actual target machine, you only build drivers for the hardware you have. One comes across this configuring the actual runtime kernel, in that you only build the actual drivers and modules you need ~ we don't need a 'full blown install and run on anything do anything kernel...we just need enough to run the emulation software on 'this' (the machine you're using for this), and that's it, stuum.
+
+Note 2: PulseAudio is redundant here and will not be installed ~ it's primarily a near RT software audio mixer, that allows multiple processes to replay sound thru/via a single HW audio resource ~ as only fs-uae will be the only process untilizing sound, we don't need a software mixer...just let SDL hit the alsa API direct =)
+
+Things need to be built and installed in a specific order in places, but some targets have -no- dependencies, as they are stand alone packages that satisfy a future dependency of something you've yet to build, ergo, they're the best packages to build first. By thing stage you've already built X (and might choose to boot the build and check it's working), so my best estimations reckon the above package build order is correct, but of course I'll check in practice to make sure it's correct.
+
+During this stage, one can build a wget list, tar.xz the archives required package, or not...and at the of doing all the above, you're finaly in a position to build/install fs-uae and check it runs as expected when you boot the machine.
+
+Next ... system-software-build.txt will detail how the above plays out in IRL .... 
+
+
+
+
+
