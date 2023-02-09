@@ -14,15 +14,36 @@ rm -rf ./*
 tar -xpf $HOME/lfs-base-system-r11.2-316.tar.xz
 
 
-This puts you at the same 'logical' point in the LFS book, in that you still need to export/set the LFS=/mnt/LFS variable, mount all the filesystems, and re-enter the chroot environment to continue --- the big difference here is, you're restoring the base system build, so once you extract the archive and follow all the instuctions outlined in the 'Important' box at the bottom of that page, you can jump to section 10 in the LFS book... https://www.linuxfromscratch.org/lfs/view/stable/chapter10/introduction.html
+This puts you at the same 'logical' point in the LFS book, in that you still need to export/set the LFS=/mnt/LFS variable, mount all the filesystems, and
+re-enter the chroot environment to continue --- the big difference here is, you're restoring the base system build, so once you extract the archive and 
+follow all the instuctions outlined in the 'Important' box at the bottom of that page, you can jump to section 10 in the LFS book... 
 
-You will find 2 linux kernel tarballs in the /sources dir, but you may use any recent linux kernel of your desire, however, before you go ahead from that point and compile/install the linux kernel and install the grub bootloader, there's a number of options to consider as discussed further on in the LFS book -> https://www.linuxfromscratch.org/lfs/view/stable/chapter11/reboot.html
+https://www.linuxfromscratch.org/lfs/view/stable/chapter10/introduction.html
 
-Personally speaking, I will continue building in the chroot environment, if I'm building on the same hardware I plan to use, and I'm not in any cross-compiling situation...which I'm not running the Debian 11.6 i386 host...(but one still needs to be mindful of things that look for running cpu specs if -march/-mcpu aren't specifically set and/or sometimes you need patch the source to stop this) Obviously at some point, you will need to boot the system to ensure it's sane (already done here), but I'll tend to do that from the bootloader config already installed by the Debian host system ~ this is useful particularly if your hardware has (U)EFI style bios, because installing the grub bootloader for that differs from bios mode...and in many ways, the bootloader isn't really 'part' of the system ...it's really the 'bridge' between the hardware and OS software levels, and you may not want to use grub at all as a bootloader at all, especially if you're targeting a particular hardware (like Thin Client box) and purpose...ie; another bottloader capable of quickly displaying boot graphics/animations and hiding the linux boot process may exist ~ I don't know if that's so, but I'm just pointing out you're not confirned to just using grub...bootloader can come anytime later and always be changed.  
 
-//scenario: one has an older PC capable of the emulation needs and has a floppy drive ; boots of other OS defaultly ; if boot floppy is inserted  machine boots to Amiga emulation
+You will find 2 linux kernel tarballs in the /sources dir, but you may use any recent linux kernel of your desire, however, before you go ahead from that
+point and compile/install the linux kernel and install the grub bootloader, there's a number of options to consider as discussed further on in the LFS
+book -> https://www.linuxfromscratch.org/lfs/view/stable/chapter11/reboot.html
 
-The BLFS book is not specifically aimed to recreate a linux desktop system, but that's what it is. What one needs to do, is cherry pick through the BLFS pages to define what is needed .... also at this time, one needs to define the usage target...ie; loosely defined the target I'm aiming for, is an Amiga emulator linux powered 'kiosk' type machine, on a Thin Client box. Ergo...am I offering the end-user a linux system to use, apart from the machine's intended purpose? No...think ATM, 'game cabinet'..anything similar to a linux appliance ; you configure a service tty and bind it to one of the USB ports or internal serial header (what we used to do =)..you get files into the machine via other means. I'll think about local console later..first aim is to build the system software map.
+Personally speaking, I will continue building in the chroot environment, if I'm building on the same hardware I plan to use, and I'm not in any cross-
+compiling situation...which I'm not running the Debian 11.6 i386 host...(but one still needs to be mindful of things that look for running cpu specs if
+-march/-mcpu aren't specifically set and/or sometimes you need patch the source to stop this) Obviously at some point, you will need to boot the system to
+ensure it's sane (already done here), but I'll tend to do that from the bootloader config already installed by the Debian host system ~ this is useful 
+particularly if your hardware has (U)EFI style bios, because installing the grub bootloader for that differs from bios mode...and in many ways, the 
+bootloader isn't really 'part' of the system ...it's really the 'bridge' between the hardware and OS software levels, and you may not want to use grub at 
+all as a bootloader at all, especially if you're targeting a particular hardware (like Thin Client box) and purpose...ie; another bottloader capable of 
+quickly displaying boot graphics/animations and hiding the linux boot process may exist ~ I don't know if that's so, but I'm just pointing out you're not
+confirned to just using grub...bootloader can come anytime later and always be changed.  
+
+//scenario: one has an older PC capable of the emulation needs and has a floppy drive ; boots of other OS defaultly ; if boot floppy is inserted  machine
+boots to Amiga emulation
+
+The BLFS book is not specifically aimed to recreate a linux desktop system, but that's what it is. What one needs to do, is cherry pick through the BLFS
+pages to define what is needed .... also at this time, one needs to define the usage target...ie; loosely defined the target I'm aiming for, is an Amiga
+emulator linux powered 'kiosk' type machine, on a Thin Client box. Ergo...am I offering the end-user a linux system to use, apart from the machine's 
+intended purpose? No...think ATM, 'game cabinet'..anything similar to a linux appliance ; you configure a service tty and bind it to one of the USB ports
+or internal serial header (what we used to do =)..you get files into the machine via other means. I'll think about local console later..first aim is to
+build the system software map.
 
 Read the system-software-map.txt for more on that..
 
