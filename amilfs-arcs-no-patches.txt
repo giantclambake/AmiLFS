@@ -1,0 +1,6 @@
+Complete source archive set for AmiLFS building.
+
+Usage: See system-software-compile.txt
+
+
+https://drive.google.com/file/d/1NnosVtTqGAD7SynKOY7fyyPFWRH72vcG/view?usp=share_link
