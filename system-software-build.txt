@@ -1,0 +1,388 @@
+Note: I'm keeping 'close' to the AmiDeb makeup, but not adding the samba_suite.
+
+Include some things AmiDeb includes, for over the wire access (not necessarily required for deployment)
+
+//drag in openssh just to ease some pain
+
+wget https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.2p1.tar.gz
+
+
+//I prefer nano
+
+wget https://www.nano-editor.org/dist/v6/nano-6.4.tar.xz
+
+
+//The ubiquitous swiss army knife of console file managers, MC
+
+wget  https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2
+
+
+wget  https://download.gnome.org/sources/glib/2.72/glib-2.72.3.tar.xz
+
+
+wget http://ftp.midnight-commander.org/mc-4.8.28.tar.xz
+
+
+//X build
+
+wget  https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2
+
+
+wget  https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2022.2.tar.xz
+
+
+wget https://www.x.org/pub/individual/lib/libXau-1.0.9.tar.bz2
+
+
+wget  https://www.x.org/pub/individual/lib/libXdmcp-1.1.3.tar.bz2
+
+
+wget  https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.15.2.tar.xz
+
+
+wget  https://xorg.freedesktop.org/archive/individual/lib/libxcb-1.15.tar.xz
+
+
+//libpng is optional dep here, so include it now as it's needed later on
+
+wget  https://downloads.sourceforge.net/libpng/libpng-1.6.37.tar.xz
+
+
+//freetype2 is required dep here, and is also needed later on
+
+wget  https://downloads.sourceforge.net/freetype/freetype-2.12.1.tar.xz
+
+
+wget  https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.0.tar.xz
+
+
+//Xorg libs 
+
+cat > lib-7.md5 << "EOF"
+ce2fb8100c6647ee81451ebe388b17ad  xtrans-1.4.0.tar.bz2
+6b20033f88f0be3d870449c47f1e10a8  libX11-1.8.1.tar.xz
+f5b48bb76ba327cd2a8dc7a383532a95  libXext-1.3.4.tar.bz2
+4e1196275aa743d6ebd3d3d5ec1dff9c  libFS-1.0.8.tar.bz2
+76d77499ee7120a56566891ca2c0dbcf  libICE-1.0.10.tar.bz2
+87c7fad1c1813517979184c8ccd76628  libSM-1.2.3.tar.bz2
+eeea9d5af3e6c143d0ea1721d27a5e49  libXScrnSaver-1.2.3.tar.bz2
+b122ff9a7ec70c94dbbfd814899fffa5  libXt-1.2.1.tar.bz2
+ac774cff8b493f566088a255dbf91201  libXmu-1.1.3.tar.bz2
+6f0ecf8d103d528cfc803aa475137afa  libXpm-3.5.13.tar.bz2
+c1ce21c296bbf3da3e30cf651649563e  libXaw-1.0.14.tar.bz2
+86f182f487f4f54684ef6b142096bb0f  libXfixes-6.0.0.tar.bz2
+3fa0841ea89024719b20cd702a9b54e0  libXcomposite-0.4.5.tar.bz2
+802179a76bded0b658f4e9ec5e1830a4  libXrender-0.9.10.tar.bz2
+4cdd1886fe5cce6f68554296edb46db8  libXcursor-1.2.1.tar.xz
+e3f554267a7a04b042dc1f6352bd6d99  libXdamage-1.1.5.tar.bz2
+6447db6a689fb530c218f0f8328c3abc  libfontenc-1.1.4.tar.bz2
+bdf528f1d337603c7431043824408668  libXfont2-2.0.5.tar.bz2
+5004d8e21cdddfe53266b7293c1dfb1b  libXft-2.3.4.tar.bz2
+74055672a111a98ce2841d2ec4057b05  libXi-1.8.tar.bz2
+0d5f826a197dae74da67af4a9ef35885  libXinerama-1.1.4.tar.bz2
+18f3b20d522f45e4dadd34afb5bea048  libXrandr-1.5.2.tar.bz2
+e142ef0ed0366ae89c771c27cfc2ccd1  libXres-1.2.1.tar.bz2
+ef8c2c1d16a00bd95b9fdcef63b8a2ca  libXtst-1.2.3.tar.bz2
+210b6ef30dda2256d54763136faa37b9  libXv-1.0.11.tar.bz2
+11a358e7229fa28dc9801c1e64fe2e18  libXvMC-1.0.13.tar.xz
+0ddeafc13b33086357cfa96fae41ee8e  libXxf86dga-1.1.5.tar.bz2
+298b8fff82df17304dfdb5fe4066fe3a  libXxf86vm-1.1.4.tar.bz2
+d2f1f0ec68ac3932dd7f1d9aa0a7a11c  libdmx-1.1.4.tar.bz2
+b34e2cbdd6aa8f9cc3fa613fd401a6d6  libpciaccess-0.16.tar.bz2
+dd7e1e946def674e78c0efbc5c7d5b3b  libxkbfile-1.1.0.tar.bz2
+42dda8016943dc12aff2c03a036e0937  libxshmfence-1.3.tar.bz2
+EOF
+
+mkdir lib &&
+cd lib &&
+grep -v '^#' ../lib-7.md5 | awk '{print $2}' | wget -i- -c \
+    -B https://www.x.org/pub/individual/lib/ &&
+md5sum -c ../lib-7.md5
+
+
+wget https://www.x.org/pub/individual/lib/libxcvt-0.1.2.tar.xz
+
+
+wget https://xcb.freedesktop.org/dist/xcb-util-0.4.0.tar.bz2
+
+
+wget  https://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
+
+
+wget  https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
+
+
+wget  https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
+
+
+wget  https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
+
+
+wget  https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2
+
+
+wget  https://dri.freedesktop.org/libdrm/libdrm-2.4.112.tar.xz
+
+
+wget  https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-2.1.1.tar.gz
+
+
+wget  https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.2.1.tar.gz
+
+
+// This is why it's good having some clam run point....
+//
+// If your target machine is using AMD/ATI video chipset (GPU or APU), for direct rendering to 
+// work in MESA you **must** install the additional modules when installing MESA
+//
+// See here for more https://www.x.org/wiki/RadeonFeature/ before compiling/installing MESA
+
+
+wget  https://mesa.freedesktop.org/archive/mesa-22.1.7.tar.xz
+
+
+wget  https://www.x.org/pub/individual/data/xbitmaps-1.1.2.tar.bz2
+
+
+//Xorg apps
+
+cat > app-7.md5 << "EOF"
+5d3feaa898875484b6b340b3888d49d8  iceauth-1.0.9.tar.xz
+c4a3664e08e5a47c120ff9263ee2f20c  luit-1.1.1.tar.bz2
+fd2e6e5a297ac2bf3d7d54799bf69de0  mkfontscale-1.2.2.tar.xz
+92be564d4be7d8aa7b5024057b715210  sessreg-1.1.2.tar.bz2
+2f72c7170cdbadc8ef786b2f9cfd4a69  setxkbmap-1.3.3.tar.xz
+3a93d9f0859de5d8b65a68a125d48f6a  smproxy-1.0.6.tar.bz2
+e96b56756990c56c24d2d02c2964456b  x11perf-1.6.1.tar.bz2
+dbcf944eb59343b84799b2cc70aace16  xauth-1.1.2.tar.xz
+5b6405973db69c0443be2fba8e1a8ab7  xbacklight-1.2.3.tar.bz2
+82a90e2feaeab5c5e7610420930cc0f4  xcmsdb-1.0.6.tar.xz
+25cc7ca1ce5dcbb61c2b471c55e686b5  xcursorgen-1.0.7.tar.bz2
+f67116760888f2e06486ee3d179875d2  xdpyinfo-1.3.3.tar.xz
+480e63cd365f03eb2515a6527d5f4ca6  xdriinfo-1.0.6.tar.bz2
+61219e492511b3d78375da76defbdc97  xev-1.2.5.tar.xz
+90b4305157c2b966d5180e2ee61262be  xgamma-1.0.6.tar.bz2
+a48c72954ae6665e0616f6653636da8c  xhost-1.0.8.tar.bz2
+ac6b7432726008b2f50eba82b0e2dbe4  xinput-1.6.3.tar.bz2
+c45e9f7971a58b8f0faf10f6d8f298c0  xkbcomp-1.4.5.tar.bz2
+c747faf1f78f5a5962419f8bdd066501  xkbevd-1.1.4.tar.bz2
+cf65ca1aaf4c28772ca7993cfd122563  xkbutils-1.0.5.tar.xz
+938177e4472c346cf031c1aefd8934fc  xkill-1.0.5.tar.bz2
+61671fee12535347db24ec3a715032a7  xlsatoms-1.1.3.tar.bz2
+4fa92377e0ddc137cd226a7a87b6b29a  xlsclients-1.1.4.tar.bz2
+f33841b022db1648c891fdc094014aee  xmessage-1.0.6.tar.xz
+0d66e07595ea083871048c4b805d8b13  xmodmap-1.0.11.tar.xz
+9cf272cba661f7acc35015f2be8077db  xpr-1.1.0.tar.xz
+2358e29133d183ff67d4ef8afd70b9d2  xprop-1.2.5.tar.bz2
+fe40f7a4fd39dd3a02248d3e0b1972e4  xrandr-1.5.1.tar.xz
+85f04a810e2fb6b41ab872b421dce1b1  xrdb-1.2.1.tar.bz2
+33b04489e417d73c90295bd2a0781cbb  xrefresh-1.0.7.tar.xz
+70ea7bc7bacf1a124b1692605883f620  xset-1.2.4.tar.bz2
+5fe769c8777a6e873ed1305e4ce2c353  xsetroot-1.1.2.tar.bz2
+b13afec137b9b331814a9824ab03ec80  xvinfo-1.1.4.tar.bz2
+f783a209f2e3fa13253cedb65eaf9cdb  xwd-1.0.8.tar.bz2
+26d46f7ef0588d3392da3ad5802be420  xwininfo-1.1.5.tar.bz2
+5ff5dc120e8e927dc3c331c7fee33fc3  xwud-1.0.6.tar.xz
+EOF
+
+
+mkdir app &&
+cd app &&
+grep -v '^#' ../app-7.md5 | awk '{print $2}' | wget -i- -c \
+    -B https://www.x.org/pub/individual/app/ &&
+md5sum -c ../app-7.md5
+
+
+wget  https://www.x.org/pub/individual/data/xcursor-themes-1.0.6.tar.bz2
+
+
+//Xorg fonts --- basic set
+
+cat > font-7.md5 << "EOF"
+d92913afdcd8ac008225a8bd06488702  font-util-1.3.3.tar.xz
+c2bcfdc52b8b6462228342cedae2fed9  encodings-1.0.6.tar.xz
+0497de0176a0dfa5fac2b0552a4cf380  font-alias-1.0.4.tar.bz2
+fcf24554c348df3c689b91596d7f9971  font-adobe-utopia-type1-1.0.4.tar.bz2
+e8ca58ea0d3726b94fe9f2c17344be60  font-bh-ttf-1.0.3.tar.bz2
+53ed9a42388b7ebb689bdfc374f96a22  font-bh-type1-1.0.3.tar.bz2
+bfb2593d2102585f45daa960f43cb3c4  font-ibm-type1-1.0.3.tar.bz2
+4ee18ab6c1edf636b8e75b73e6037371  font-misc-ethiopic-1.0.4.tar.bz2
+3eeb3fb44690b477d510bbd8f86cf5aa  font-xfree86-type1-1.0.4.tar.bz2
+EOF
+
+
+mkdir font &&
+cd font &&
+grep -v '^#' ../font-7.md5 | awk '{print $2}' | wget -i- -c \
+    -B https://www.x.org/pub/individual/font/ &&
+md5sum -c ../font-7.md5
+
+
+wget  https://www.x.org/pub/individual/data/xkeyboard-config/xkeyboard-config-2.36.tar.xz
+
+
+//this Wayland stuff might be optional, but included for completeness
+
+
+wget  https://www.cairographics.org/releases/pixman-0.40.0.tar.gz
+
+
+wget  https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.0.tar.xz
+
+
+wget  https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.21.0/downloads/wayland-1.21.0.tar.xz
+
+
+wget  https://wayland.freedesktop.org/releases/wayland-protocols-1.26.tar.xz
+
+
+wget  https://www.x.org/pub/individual/xserver/xwayland-22.1.3.tar.xz
+
+
+wget  https://www.x.org/pub/individual/xserver/xorg-server-21.1.4.tar.xz
+
+
+wget  https://www.freedesktop.org/software/libevdev/libevdev-1.13.0.tar.xz
+
+
+wget  https://bitmath.org/code/mtdev/mtdev-1.1.6.tar.bz2
+
+
+wget  https://www.x.org/pub/individual/driver/xf86-input-evdev-2.10.6.tar.bz2
+
+
+wget  https://gitlab.freedesktop.org/libinput/libinput/-/archive/1.21.0/libinput-1.21.0.tar.gz
+
+
+wget  https://www.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
+
+
+// Time to choose your poison ~ what video hardware have you got?
+//
+//  Xorg AMDGPU Driver-22.0.0
+//
+//  Xorg ATI Driver-19.1.0
+//
+//  Xorg Fbdev Driver-0.5.0
+//
+//  Xorg Intel Driver-20210222
+//
+//  Xorg Nouveau Driver-1.0.17
+//
+//  Xorg VMware Driver-13.3.0
+//
+// If our hypothetical target is a Thin Client box, there will be a *lot* of the cheaper units running intel IGP. There may be some of these boxes with onboard ati/amd stuffs, or being an AMD APU, and there's likely example of these boxes with nvidia chipsets, or a single 16x pcie slot to put a discrete GPU card in. In this test case, the mobo has a nvidia MCP61 mainboard chipset with nv M7025 onboard GPU, but there's a nv GF108 in the pcie slot, and so obviously I'm going to use the nouveau driver 8)
+
+wget  https://www.x.org/pub/individual/driver/xf86-video-nouveau-1.0.17.tar.bz2
+
+
+wget  https://github.com/intel/libva/releases/download/2.15.0/libva-2.15.0.tar.bz2
+
+
+wget  https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/1.5/libvdpau-1.5.tar.bz2
+
+
+//Note intel driver needs more here -- this stuff won't be used if/when nvidia proprietary drivers are used
+
+//The next 2 packages are considered optional, but as this lot is being compiled with optimizations, it's a good idea to include them for test
+//Plus of course it gives us all a living reminder, of what it was like decades ago when window managers were 'trivial' .. B^)
+
+
+// Xorg Legacy
+
+cat > legacy.dat << "EOF"
+2a455d3c02390597feb9cefb3fe97a45 app/ bdftopcf-1.1.tar.bz2
+1347c3031b74c9e91dc4dfa53b12f143 font/ font-adobe-100dpi-1.0.3.tar.bz2
+6c9f26c92393c0756f3e8d614713495b font/ font-adobe-75dpi-1.0.3.tar.bz2
+cb7b57d7800fd9e28ec35d85761ed278 font/ font-jis-misc-1.0.3.tar.bz2
+0571bf77f8fab465a5454569d9989506 font/ font-daewoo-misc-1.0.3.tar.bz2
+a2401caccbdcf5698e001784dbd43f1a font/ font-isas-misc-1.0.3.tar.bz2
+c88eb44b3b903d79fb44b860a213e623 font/ font-misc-misc-1.1.2.tar.bz2
+EOF
+
+mkdir legacy &&
+cd    legacy &&
+grep -v '^#' ../legacy.dat | awk '{print $2$3}' | wget -i- -c \
+     -B https://www.x.org/pub/individual/ &&
+grep -v '^#' ../legacy.dat | awk '{print $1 " " $3}' > ../legacy.md5 &&
+md5sum -c ../legacy.md5
+
+
+//the following 2 are extras ..xterm is optional, xinit gets installed but not configured (it might be useful later)
+
+wget https://www.x.org/pub/individual/app/xinit-1.4.1.tar.bz2
+
+
+wget https://invisible-mirror.net/archives/xterm/xterm-372.tgz
+
+
+//you need to do TTF fonts here -- we'll just use the dejavu fontset for now
+
+wget https://sourceforge.net/projects/dejavu/files/latest/download
+
+
+## that's the end of X ~ now the ladder to fs-uae
+
+
+wget  https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.8.tar.bz2
+
+
+wget  https://www.alsa-project.org/files/pub/plugins/alsa-plugins-1.2.7.1.tar.bz2
+
+
+wget  https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.8.tar.bz2
+
+
+//these 2 really depend on what sound hardware you've got
+//
+// wget  https://www.alsa-project.org/files/pub/tools/alsa-tools-1.2.5.tar.bz2
+//
+// wget  https://www.alsa-project.org/files/pub/firmware/alsa-firmware-1.2.4.tar.bz2
+
+
+wget https://downloads.sourceforge.net/infozip/zip30.tar.gz
+
+
+wget  https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/nasm-2.16.01.tar.xz
+
+
+wget https://cmake.org/files/v3.25/cmake-3.25.2.tar.gz
+
+
+wget  https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.5.tar.gz
+
+
+wget  https://downloads.sourceforge.net/glew/glew-2.2.0.tgz
+
+
+wget  https://libmpeg2.sourceforge.net/files/libmpeg2-0.5.1.tar.gz
+
+
+wget http://deb.debian.org/debian/pool/main/o/openal-soft/openal-soft_1.19.1.orig.tar.gz
+
+
+wget https://www.libsdl.org/release/SDL2-2.26.3.tar.gz
+
+
+wget https://github.com/FrodeSolheim/fs-uae/archive/refs/heads/master.zip
+
+
+The should be it, in the correct order of progression....
+
+
+Next.... system-software-compile.txt ; confirming it all works =)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
