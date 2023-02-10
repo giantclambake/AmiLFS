@@ -1,3 +1,5 @@
+//libs build
+
 for package in $(grep -v '^#' ../lib-7.md5 | awk '{print $2}')
 do
   packagedir=${package%.tar.?z*}
@@ -68,7 +70,7 @@ done
 
 
 
-///legacy
+//legacy build
 
 for package in $(grep -v '^#' ../legacy.md5 | awk '{print $2}')
 do
