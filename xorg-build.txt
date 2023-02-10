@@ -1,0 +1,84 @@
+for package in $(grep -v '^#' ../lib-7.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.?z*}
+  tar -xf $package
+  pushd $packagedir
+  docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+  case $packagedir in
+    libXfont2-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-devel-docs
+    ;;
+
+    libXt-[0-9]* )
+      ./configure $XORG_CONFIG $docdir \
+                  --with-appdefaultdir=/etc/X11/app-defaults
+    ;;
+
+    libX11-* )
+      ./configure $XORG_CONFIG --disable-thread-safety-constructor
+    ;;
+
+    * )
+      ./configure $XORG_CONFIG $docdir
+    ;;
+  esac
+  make
+  make install
+  popd
+  rm -rf $packagedir
+  /sbin/ldconfig
+done
+
+
+//apps build
+
+for package in $(grep -v '^#' ../app-7.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.?z*}
+  tar -xf $package
+  pushd $packagedir
+     case $packagedir in
+       luit-[0-9]* )
+         sed -i -e "/D_XOPEN/s/5/6/" configure
+       ;;
+     esac
+
+     ./configure $XORG_CONFIG
+     make
+     make install
+  popd
+  rm -rf $packagedir
+done
+
+
+
+//font build
+
+for package in $(grep -v '^#' ../font-7.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.?z*}
+  tar -xf $package
+  pushd $packagedir
+    ./configure $XORG_CONFIG
+    make
+    make install
+  popd
+   rm -rf $packagedir
+done
+
+
+
+///legacy
+
+for package in $(grep -v '^#' ../legacy.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.bz2}
+  tar -xf $package
+  pushd $packagedir
+    ./configure $XORG_CONFIG
+    make
+    make install
+  popd
+  rm -rf $packagedir
+  /sbin/ldconfig
+done
