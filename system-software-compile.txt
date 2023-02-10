@@ -1,8 +1,14 @@
-Even though you create your little map weaving it's way through the BLFS book, trying to create a build order of what you need when, when it comes to the actual compile time command line, things are bound to go wrong and/or be missing and/or be incorrectly ordered.
+Even though you create your little map weaving it's way through the BLFS book, trying to create a build order of what you need when, when it comes to the
+actual compile time command line, things are bound to go wrong and/or be missing and/or be incorrectly ordered.
 
-The method I use is to follow my 1st draft of system-software-build.txt as a guide ... a 'mud map' if you will ...and cross reference that against the BLFS pages, noting any errata as I go.
+The method I use is to follow my 1st draft of system-software-build.txt as a guide ... a 'mud map' if you will ...and cross reference that against the
+BLFS pages, noting any errata as I go.
 
-Most of the issues with this build, is me trying to straight line pass a lot of 'recommended' deps (not 'required'), to discover the BLFS build commands really are tuned to a case of recommended having been installed. There's nothing wrong with that, but one has to weigh time ~ do you spend time checking configure opts, editing makefiles, blablabla, or do you just satisfy the dependency (even though you don't need it) ; the latter way is quicker. In this case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
+Most of the issues with this build, is me trying to straight line pass a lot of 'recommended' deps (not 'required'), to discover the BLFS build commands
+really are tuned to a case of recommended having been installed. There's nothing wrong with that, but one has to weigh time ~ do you spend time checking
+configure opts, editing makefiles, blablabla, or do you just satisfy the dependency (even though you don't need it) ; the latter way is quicker. In this
+case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain
+any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
 
 
 
@@ -28,9 +34,9 @@ https://www.linuxfromscratch.org/blfs/view/11.2/postlfs/nano.html
 https://www.linuxfromscratch.org/blfs/view/11.2/general/pcre.html
 
 
-//setting compiler opts
+//setting compiler opts...we're going for speed (-03) not size (-0s)
 
-export CFLAGS="-O3 -march=i686" && CXXFLAGS=$CFLAGS
+export CFLAGS="-O3 -march=i686" && export CXXFLAGS=$CFLAGS
 
 
 //added libxml2 libxslt ...glib2 was having a sook...
@@ -84,7 +90,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/fontconfig.html
 
 
 
-//if you're building as root, you have to edit the x7lib build script - see xorg-build.txt
+//if you're building as root, you have to edit the x7 bulk build scripts - see xorg-build.txt
 
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7lib.html
@@ -123,7 +129,7 @@ https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libvdpau
 //this next one is a mesa dep
 //if you've got i915 video you'll want to do something different here 
 //and use https://github.com/intel/intel-vaapi-driver/releases/download/2.4.1/intel-vaapi-driver-2.4.1.tar.bz2
-//https://gitlab.freedesktop.org/drm/igt-gpu-tools
+//and https://gitlab.freedesktop.org/drm/igt-gpu-tools
 
 https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libva
 
@@ -158,7 +164,7 @@ https://www.linuxfromscratch.org/blfs/view/11.2/general/cmake.html
 
 https://www.linuxfromscratch.org/blfs/view/11.2/general/llvm.html
 
-//hmmm...llvm builds, but not using clang version cited ~ built without local clang
+//hmmm...llvm builds, but not using local clang version cited ~ built without local clang
 
 //grab mesa demo test patch -- wget  https://www.linuxfromscratch.org/patches/blfs/11.2/mesa-22.1.7-add_xdemos-1.patch
 //
@@ -191,7 +197,9 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/pixman.html
 
 https://www.linuxfromscratch.org/blfs/view/stable/general/wayland-protocols.html
 
+
 https://www.linuxfromscratch.org/blfs/view/svn/general/wayland.html
+
 
 //add libepoxy --- wget  https://download.gnome.org/sources/libepoxy/1.5/libepoxy-1.5.10.tar.xz
 
@@ -200,6 +208,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/libepoxy.html
 //add tirpc --- wget  https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.3.tar.bz2
 
 https://www.linuxfromscratch.org/blfs/view/stable/basicnet/libtirpc.html
+
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/xwayland.html
 
@@ -219,6 +228,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-nouveau-d
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7legacy.html
 
+
 //add twm  --- wget https://www.x.org/pub/individual/app/twm-1.0.12.tar.xz
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/twm.html
@@ -226,6 +236,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/twm.html
 //add dejavu fonts --- wget https://ixpeering.dl.sourceforge.net/project/dejavu/dejavu/2.37/dejavu-fonts-ttf-2.37.tar.bz2
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/TTF-and-OTF-fonts.html#dejavu-fonts
+
 
 //
 //////////////////////End of Xorg//////////////////////////////////////
@@ -266,6 +277,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/multimedia/libmpeg2.html
 
 https://www.linuxfromscratch.org/blfs/view/svn/multimedia/libsamplerate.html
 
+
 https://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
 
 //add unzip ---  wget  https://downloads.sourceforge.net/infozip/unzip60.tar.gz
@@ -273,20 +285,25 @@ https://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
 
 https://www.linuxfromscratch.org/blfs/view/stable/general/unzip.html
 
+
 //Add SDL2-ttf --- wget https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.2/SDL2_ttf-2.20.2.tar.gz
 //
 // ./configure --prefix=/usr && make -j4 && make install
 
 //Add Portmidi -- wget https://github.com/PortMidi/portmidi/archive/refs/heads/master.zip
 // cmake . ; edit  cmake_install.cmake ; make && make install
-
-
+//
+//
 //
 //
 ///////// And Finally ///////////////
 
 
 fsuae-master  ---- ./configure --prefix=/usr && make -j4 && make install
+
+
+
+Next, system-configurata.txt
 
 
 
