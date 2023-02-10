@@ -1,0 +1,308 @@
+Even though you create your little map weaving it's way through the BLFS book, trying to create a build order of what you need when, when it comes to the actual compile time command line, things are bound to go wrong and/or be missing and/or be incorrectly ordered.
+
+The method I use is to follow my 1st draft of system-software-build.txt as a guide ... a 'mud map' if you will ...and cross reference that against the BLFS pages, noting any errata as I go.
+
+Most of the issues with this build, is me trying to straight line pass a lot of 'recommended' deps (not 'required'), to discover the BLFS build commands really are tuned to a case of recommended having been installed. There's nothing wrong with that, but one has to weigh time ~ do you spend time checking configure opts, editing makefiles, blablabla, or do you just satisfy the dependency (even though you don't need it) ; the latter way is quicker. In this case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
+
+
+
+// add wget -- wget  https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
+// functional but fractionally broken (cert-keys); should be rebuilt after adding
+// https://www.linuxfromscratch.org/blfs/view/svn/postlfs/make-ca.html
+// https://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnutls.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/basicnet/wget.html
+
+
+// grab the BLFS bootscripts & unpack in /sources
+
+wget  https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-20220722.tar.xz
+
+
+//...follow me...
+
+https://www.linuxfromscratch.org/blfs/view/11.2/postlfs/openssh.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/postlfs/nano.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/pcre.html
+
+
+//setting compiler opts
+
+export CFLAGS="-O3 -march=i686" && CXXFLAGS=$CFLAGS
+
+
+//added libxml2 libxslt ...glib2 was having a sook...
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/libxml2.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/libxslt.html
+
+
+
+//
+//change glib2 build cmd (don't make docs, not wanted) -->>   meson --prefix=/usr --buildtype=release ..  && ninja
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/glib2.html
+
+
+//add slang -- wget  https://www.jedsoft.org/releases/slang/slang-2.3.3.tar.bz2
+//mc was upset without it
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/slang.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/mc.html
+
+
+//Xorg build -- setup build env
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xorg7.html
+
+
+//X Build
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/util-macros.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xorgproto.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/libXau.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/libXdmcp.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xcb-proto.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/libxcb.html
+
+//grab libpng patch  -- wget  https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-1.6.37-apng.patch.gz
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/libpng.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/freetype2.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/fontconfig.html
+
+
+
+//if you're building as root, you have to edit the x7lib build script - see xorg-build.txt
+
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7lib.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/libxcvt.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util-image.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util-keysyms.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util-renderutil.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util-wm.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/xcb-util-cursor.html
+
+
+//////////////////////////////////////////////////
+//Warning! Danger Will Robinson....this is the beginning of Mesa murmurings...
+//This has a lot to do with video hardware used
+//It may actually be a worthwhile rebuild from here-on if using different hardware
+///////////////////
+//
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/libdrm.html
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/python-modules.html#MarkupSafe
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/python-modules.html#Mako
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libvdpau
+
+
+//this next one is a mesa dep
+//if you've got i915 video you'll want to do something different here 
+//and use https://github.com/intel/intel-vaapi-driver/releases/download/2.4.1/intel-vaapi-driver-2.4.1.tar.bz2
+//https://gitlab.freedesktop.org/drm/igt-gpu-tools
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libva
+
+//Note with libva above, you build/install here once before Mesa, then blow it away & build/install again after Mesa is installed
+
+
+//These added to satify deps leading up to llvm
+//
+//add libuv  --- wget libuv https://dist.libuv.org/dist/v1.44.2/libuv-v1.44.2.tar.gz
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/libuv.html
+
+//add nghttp2  --- wget https://github.com/nghttp2/nghttp2/releases/download/v1.48.0/nghttp2-1.48.0.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/11.2/basicnet/nghttp2.html
+
+//add libarchive --- wget  https://github.com/libarchive/libarchive/releases/download/v3.6.1/libarchive-3.6.1.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/libarchive.html
+
+//add curl  --- wget https://curl.se/download/curl-7.84.0.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/11.2/basicnet/curl.html
+
+//add cmake --- wget https://cmake.org/files/v3.24/cmake-3.24.1.tar.gz
+//grab patch -- wget  https://www.linuxfromscratch.org/patches/blfs/11.2/cmake-3.24.1-upstream_fix-1.patch
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/cmake.html
+
+//add llvm --- wget https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-14.0.6.src.tar.xz
+//this takes some time, have coffee, order pizza...
+
+https://www.linuxfromscratch.org/blfs/view/11.2/general/llvm.html
+
+//hmmm...llvm builds, but not using clang version cited ~ built without local clang
+
+//grab mesa demo test patch -- wget  https://www.linuxfromscratch.org/patches/blfs/11.2/mesa-22.1.7-add_xdemos-1.patch
+//
+//change cmd to just build against X -- -Dplatforms=x11,wayland   to   -Dplatforms=x11
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/mesa.html
+
+
+//Now that mesa is installed, circle back and do libva again...
+
+https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libva
+
+//
+//careful above, look out for the girl from the green dimension ////////////
+////////////////////////////////////
+
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7app.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xcursor-themes.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7font.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xkeyboard-config.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/pixman.html
+
+
+// edit meson_options.txt  to turn tests off (false)
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/wayland-protocols.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/general/wayland.html
+
+//add libepoxy --- wget  https://download.gnome.org/sources/libepoxy/1.5/libepoxy-1.5.10.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/libepoxy.html
+
+//add tirpc --- wget  https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.3.tar.bz2
+
+https://www.linuxfromscratch.org/blfs/view/stable/basicnet/libtirpc.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xwayland.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/xorg-server.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#libevdev
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/mtdev.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-evdev-driver
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#libinput
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-libinput-driver
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-nouveau-driver
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/x7legacy.html
+
+//add twm  --- wget https://www.x.org/pub/individual/app/twm-1.0.12.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/twm.html
+
+//add dejavu fonts --- wget https://ixpeering.dl.sourceforge.net/project/dejavu/dejavu/2.37/dejavu-fonts-ttf-2.37.tar.bz2
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/TTF-and-OTF-fonts.html#dejavu-fonts
+
+//
+//////////////////////End of Xorg//////////////////////////////////////
+//
+
+https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-lib.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-plugins.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-utils.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/zip.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/nasm.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/libjpeg.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/x/glew.html
+
+https://www.linuxfromscratch.org/blfs/view/stable/multimedia/libmpeg2.html
+
+
+/////////////
+//
+// libopenal install  -- wget https://openal-soft.org/openal-releases/openal-soft-1.23.0.tar.bz2
+//
+// ...for now...
+//
+// cd build && cmake ..  
+// edit  cmake_install.cmake  --  set(CMAKE_INSTALL_PREFIX "/usr/local") to point at /usr
+// cmake --build .
+// make install && ldconfig
+//
+/////////////
+
+
+// add libsamplerate -- wget  https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz
+
+https://www.linuxfromscratch.org/blfs/view/svn/multimedia/libsamplerate.html
+
+https://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
+
+//add unzip ---  wget  https://downloads.sourceforge.net/infozip/unzip60.tar.gz
+//grab patch --- wget https://www.linuxfromscratch.org/patches/blfs/11.2/unzip-6.0-consolidated_fixes-1.patch
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/unzip.html
+
+//Add SDL2-ttf --- wget https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.2/SDL2_ttf-2.20.2.tar.gz
+//
+// ./configure --prefix=/usr && make -j4 && make install
+
+//Add Portmidi -- wget https://github.com/PortMidi/portmidi/archive/refs/heads/master.zip
+// cmake . ; edit  cmake_install.cmake ; make && make install
+
+
+//
+//
+///////// And Finally ///////////////
+
+
+fsuae-master  ---- ./configure --prefix=/usr && make -j4 && make install
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
