@@ -10,6 +10,20 @@ configure opts, editing makefiles, blablabla, or do you just satisfy the depende
 case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain
 any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
 
+/////////////// Start //////////////////
+//
+// The which command comes in useful, but it's viable by bash so not installed
+// So.....
+//
+// cat > /usr/bin/which << "EOF"
+// #!/bin/bash
+// type -pa "$@" | head -n 1 ; exit ${PIPESTATUS[0]}
+// EOF
+// chmod -v 755 /usr/bin/which
+// chown -v root:root /usr/bin/which
+//
+// See  https://www.linuxfromscratch.org/blfs/view/svn/general/which.html
+//////////////
 
 
 // add wget -- wget  https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
@@ -60,6 +74,12 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/slang.html
 
 https://www.linuxfromscratch.org/blfs/view/stable/general/mc.html
 
+//mc tends to look ugly until fonts installed later on
+//
+// WARNING: do NOT compile inside the mc console (Ctrl-O) 
+// WARNING: did you read the above warning? Heed it...
+//
+
 
 //Xorg build -- setup build env
 
@@ -80,6 +100,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/xcb-proto.html
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/libxcb.html
 
+
 //grab libpng patch  -- wget  https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-1.6.37-apng.patch.gz
 
 https://www.linuxfromscratch.org/blfs/view/stable/general/libpng.html
@@ -91,9 +112,12 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/fontconfig.html
 
 
 //if you're building as root, you have to edit the x7 bulk build scripts - see xorg-build.txt
-
-
+//
+//
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7lib.html
+
+
+//
 
 https://www.linuxfromscratch.org/blfs/view/11.2/x/libxcvt.html
 
@@ -181,12 +205,17 @@ https://www.linuxfromscratch.org/blfs/view/11.2/x/x7driver.html#libva
 //careful above, look out for the girl from the green dimension ////////////
 ////////////////////////////////////
 
-
+//if you're building as root, you have to edit the x7 bulk build scripts - see xorg-build.txt
+//
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7app.html
+
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/xcursor-themes.html
 
+//if you're building as root, you have to edit the x7 bulk build scripts - see xorg-build.txt
+//
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7font.html
+
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/xkeyboard-config.html
 
@@ -226,6 +255,9 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-libinput-
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#xorg-nouveau-driver
 
+
+//if you're building as root, you have to edit the x7 bulk build scripts - see xorg-build.txt
+//
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7legacy.html
 
 
