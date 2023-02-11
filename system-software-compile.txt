@@ -323,7 +323,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/unzip.html
 // ./configure --prefix=/usr && make -j4 && make install
 
 //Add Portmidi -- wget https://github.com/PortMidi/portmidi/archive/refs/heads/master.zip
-// cmake . ; edit  cmake_install.cmake ; make && make install
+// cmake . ; edit  cmake_install.cmake [change CMAKE_INSTALL_PREFIX] ; make && make install
 //
 //
 //
