@@ -1,8 +1,14 @@
-Even though you create your little map weaving it's way through the BLFS book, trying to create a build order of what you need when, when it comes to the actual compile time command line, things are bound to go wrong and/or be missing and/or be incorrectly ordered.
+Even though you create your little map weaving it's way through the BLFS book, trying to create a build order of what you need when, when it comes to 
+the actual compile time command line, things are bound to go wrong and/or be missing and/or be incorrectly ordered.
 
-The method I use is to follow my 1st draft of system-software-build.txt as a guide ... a 'mud map' if you will ...and cross reference that against the BLFS pages, noting any errata as I go.
+The method I use is to follow my 1st draft of system-software-build.txt as a guide ... a 'mud map' if you will ...and cross reference that against the
+BLFS pages, noting any errata as I go.
 
-Most of the issues with this build, is me trying to straight line pass a lot of 'recommended' deps (not 'required'), to discover the BLFS build commands really are tuned to a case of recommended having been installed. There's nothing wrong with that, but one has to weigh time ~ do you spend time checking configure opts, editing makefiles, blablabla, or do you just satisfy the dependency (even though you don't need it) ; the latter way is quicker. In this case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
+Most of the issues with this build, is me trying to straight line pass a lot of 'recommended' deps (not 'required'), to discover the BLFS build commands 
+really are tuned to a case of recommended having been installed. There's nothing wrong with that, but one has to weigh time ~ do you spend time checking 
+configure opts, editing makefiles, blablabla, or do you just satisfy the dependency (even though you don't need it) ; the latter way is quicker. In this
+case, it's a test build on a dedicated build machine, and I really don't care about a little tiny bit of bloat, because the deployment image won't contain
+any of this stuff anyway ~ I'm only after the optimized i686 binaries wrt the emulator box.
 
 
 
