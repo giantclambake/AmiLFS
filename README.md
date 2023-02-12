@@ -21,9 +21,9 @@ To that end, there are 3 junctures in such a LFS based build process, that repre
 
 This build follows version r11.2-314 of the LFS book + Errata + 1 diversion of linux kernel version used, I chose a 5series instead of 6 (patches related). Build host is Debian-11.6-i386 install running on AMD Phenom x4 CPU. This is a 32bit build.
 
-https://drive.google.com/file/d/1w36yl4gJx-i3k1WqJJ1hNqq45Gq1U1Of/view?usp=share_link 
-
-The archive above contains the 32bit LFS toolchain, and all the source archive required to build the base system. As I've already built to boot using this toolchain, I consider it 'tested sane' =)
+///// dead link-https://drive.google.com/file/d/1w36yl4gJx-i3k1WqJJ1hNqq45Gq1U1Of/view?usp=share_link
+//// The archive [that was] above has been removed -- the 32bit LFS toolchain was not required
+//// see/use   Base_system.txt    link
 
 Usage: This establishes an entry point to the LFS book at https://www.linuxfromscratch.org/lfs/view/stable/chapter07/cleanup.html , section 7.13.3 Restore -- follow the instructions, ensure the $LFS variable is set, and you're good to go if you want to build the base system itself.
 
