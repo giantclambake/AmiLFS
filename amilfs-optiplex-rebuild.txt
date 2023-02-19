@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-///amilfs sys build -- optiplex i915
+/// amilfs sys build -- optiplex i915
 ///
 /// This is the rebuild path to fs-uae-launcher, re-ordered correctly
 /// Starting from $LFS_base to completion
@@ -13,7 +13,9 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/libtasn1.html
 https://www.linuxfromscratch.org/blfs/view/stable/postlfs/p11-kit.html
 https://www.linuxfromscratch.org/blfs/view/stable/postlfs/make-ca.html
 https://www.linuxfromscratch.org/blfs/view/stable/basicnet/wget.html
+
 >>>///again for extra certs -- https://www.linuxfromscratch.org/blfs/view/stable/postlfs/make-ca.html
+
 https://www.linuxfromscratch.org/blfs/view/stable/general/glib2.html  [-Dman=false]
 https://www.linuxfromscratch.org/blfs/view/stable/postlfs/nano.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/libpng.html
@@ -22,8 +24,10 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/zip.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/unzip.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/gpm.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/mc.html
+
 |
 |
+
 https://www.linuxfromscratch.org/blfs/view/stable/general/pcre2.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/mtdev.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/pixman.html
@@ -39,9 +43,11 @@ https://www.linuxfromscratch.org/blfs/view/stable/multimedia/libmpeg2.html
 https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-lib.html
 https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-plugins.html
 https://www.linuxfromscratch.org/blfs/view/stable/multimedia/alsa-utils.html
+
 |
 https://www.linuxfromscratch.org/blfs/view/stable/general/which.html [script only]
 |
+
 https://www.linuxfromscratch.org/blfs/view/stable/basicnet/lynx.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/pciutils.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/libtiff.html
@@ -53,8 +59,11 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/gobject-introspection.
 https://www.linuxfromscratch.org/blfs/view/stable/general/icu.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/freetype2.html
 https://www.linuxfromscratch.org/blfs/view/stable/general/harfbuzz.html
+
 |
->>>///again- cyclic dep --- https://www.linuxfromscratch.org/blfs/view/stable/general/freetype2.html
+>>>///last one again- cyclic dep --- 
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/freetype2.html
 |
 https://www.linuxfromscratch.org/blfs/view/stable/general/fontconfig.html
 |
@@ -94,18 +103,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/python-modules.html#Ma
 https://www.linuxfromscratch.org/blfs/view/stable/general/python-modules.html#Mako
 https://www.linuxfromscratch.org/blfs/view/stable/x/x7driver.html#libva
 https://www.linuxfromscratch.org/blfs/view/stable/general/wayland.html
-
-|
 https://www.linuxfromscratch.org/blfs/view/stable/general/wayland-protocols.html
-//...-error-.. ../meson.build:81:1: ERROR: File unstable/keyboard-shortcuts-inhibit/keyboard-shortcuts-inhibit-unstable-v1.xml does not exist.
-// bash-5.1# pwd
-//    /sources/sysbuild/wayland-protocols-1.26/unstable/keyboard-shortcuts-inhibit
-// bash-5.1# ls
-// README	keyboard-shortcuts-inhibit-unstable-v1.xm
-// bash-5.1# mv keyboard-shortcuts-inhibit-unstable-v1.xm keyboard-shortcuts-inhibit-unstable-v1.xml \
-// mv ../unstable/linux-explicit-synchronization/linux-explicit-synchronization-unstab ../unstable/linux-explicit-synchronization/linux-explicit-synchronization-unstable-v1.xml
-|
-
 
 |
 |
@@ -114,7 +112,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/libxkbcommon.html
 https://www.linuxfromscratch.org/blfs/view/stable/multimedia/sdl2.html
 https://www.linuxfromscratch.org/blfs/view/stable/x/TTF-and-OTF-fonts.html
 |
-
+|
 
 |
 |
@@ -191,7 +189,11 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/tuning-fontconfig.html  [dis
 https://www.linuxfromscratch.org/blfs/view/stable/x/xorg-config.html
 
 |
-||| re-do mc for xterm support --> https://www.linuxfromscratch.org/blfs/view/stable/general/mc.html
+||| re-do mc for xterm support
+|
+
+https://www.linuxfromscratch.org/blfs/view/stable/general/mc.html
+
 |
 
 https://www.linuxfromscratch.org/blfs/view/stable/general/git.html
@@ -208,9 +210,9 @@ https://www.linuxfromscratch.org/blfs/view/stable/general/libwebp.html
 |
 
 https://www.linuxfromscratch.org/blfs/view/stable/x/qt5.html
+
 |
-|
-//Qt5 configure invocation
+//Qt5 configure invocation (building in /usr )
 |
 
 ./configure -prefix $QT5PREFIX                        \
@@ -256,6 +258,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/qt5.html
 || python3 -m pip install lhafile
 |
 |
+
 |
 //Add sip4 --  wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.25/sip-4.19.25.tar.gz
 // python3 configure.py && make && make install
@@ -264,7 +267,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/qt5.html
 //Add PyQt5 -- wget https://files.pythonhosted.org/packages/8c/90/82c62bbbadcca98e8c6fa84f1a638de1ed1c89e85368241e9cc43fcbc320/PyQt5-5.15.0.tar.gz
 // python3 configure.py && make && make install
 |
-|
+
 |
 |
 //Add fs-uae from github -- git clone https://github.com/FrodeSolheim/fs-uae.git
@@ -275,6 +278,7 @@ https://www.linuxfromscratch.org/blfs/view/stable/x/qt5.html
 // make
 |
 |
+
 |\\\ END ///|
 \\\\\   /////
 |||||||||||||
