@@ -7,24 +7,33 @@ WARNING: Only compiled with intel HD4x00 (i915) graphics support ~ there is *NO*
 NOTE: Only restore this image to a 128GB or greater hard/mSATA/SSD disk device.
 
 
-This is a little 'snapshot' of where the system makeup is, at the now... more or less. After restoring the disk image, and rebooting the machine to that drive, you will see a very plain grub bootmenu on a 10 second countdown timer.
+This is a little 'snapshot' of where the system makeup is, at the now... more or less. After restoring the disk image, and rebooting the machine to that
+drive, you will see a very plain grub bootmenu on a 10 second countdown timer.
 
-DANGER WILL ROBINSON ...do NOT boot the RT kernel ... the init process isn't setup to deal with it, and klogd will sit there chewing on 100% of 1 cpu core getting nowhere =) You can fix it easy enough, but there's no real advantage right now because no emulation environment has yet to be built.
+DANGER WILL ROBINSON ...do NOT boot the RT kernel ... the init process isn't setup to deal with it, and klogd will sit there chewing on 100% of 1 cpu core
+getting nowhere =) You can fix it easy enough, but there's no real advantage right now because no emulation environment has yet to be built.
 
 NOTE: network config is set to static IP of 192.168.1.112 -- edit the file   /etc/sysconfig/ifconfig.eth0   to suit your LAN requirements.
 
-It will boot sysvinit style to a login prompt, and you can login as user  amiga   with the password   amiga   and then type   startx   hit enter and end up in the ice-wm GUI environment...(and I think that includes the extra themes package, so there lots to play with =) The amiga user has passwordless sudo permissions, use   sudo su -   to obtain root. 
+It will boot sysvinit style to a login prompt, and you can login as user  amiga   with the password   amiga   and then type   startx   hit enter and end up
+in the ice-wm GUI environment...(and I think that includes the extra themes package, so there lots to play with =) The amiga user has passwordless sudo 
+permissions, use   sudo su -   to obtain root. 
 
-This system snapshot is largely unconfigured at this stage, however it is a full working linux system environment, with all compilation toolchains, docs, manpages, the full monty. If you issue the command   pkg-config --list-all   you get a good picture of the system makeup. Basically from this point of the build, you can choose which way you want to go...ie; gtk+ or qt based system, or both. 
+This system snapshot is largely unconfigured at this stage, however it is a full working linux system environment, with all compilation toolchains, docs,
+manpages, the full monty. If you issue the command   pkg-config --list-all   you get a good picture of the system makeup. Basically from this point of the
+build, you can choose which way you want to go...ie; gtk+ or qt based system, or both. 
 
 If anyone sucessfully restores and boots the image to a 'like' system construct, let me know. (I think the image has 24days before deletion)
 
-I hope to hoist another image in a week or so, with the amiberry x86-64 build all installed ~ it's about the quickest route to Amiga emulation without the need of gtk+/qt at all... 
+I hope to hoist another image in a week or so, with the amiberry x86-64 build all installed ~ it's about the quickest route to Amiga emulation without the
+need of gtk+/qt at all... 
+
+#######################
 
 How to restore image;
 
 Download the latest Clonezilla image and prepare a live USB drive (image is UEFI based) --> https://clonezilla.org/liveusb.php
 
-Download the image itself, and unpack to another USB drive --> https://mega.nz/file/jdgBkC4I#jiuSNVIjV4Ik7ueMFqthXMFAL2WyM_hwuCw2uNGr_To
+Download the amilfs image itself (1.2gb), and unpack to another USB drive --> https://mega.nz/file/jdgBkC4I#jiuSNVIjV4Ik7ueMFqthXMFAL2WyM_hwuCw2uNGr_To
 
 Boot the Clonezilla live USB stick, follow the 'restore disk from image' onscreen instructions, mounting the other USB stick as the image drive along the way, and once finish reboot from the restored drive.
