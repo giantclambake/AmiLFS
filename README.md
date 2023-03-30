@@ -1,11 +1,22 @@
 # AmiLFS
+
 A Linux From Scratch based instance for Amiga emulation on x86 hardware ~ inspired by the AmiDeb instance!
 
 This project was inspired by the Debian linux based OS instance known as 'AmiDeb'
 
 You can read all about that, and even try it if you wish, visit it's website --> https://amiga.vk3heg.net/ 
 
-A way of looking at this, is from the 'turn a PC into a Amiga' (via emulation) viewpoint, and I found the minimum spec the host machine needed to be, was somewhere near intel P4 @ 2.8MHz with 512MB of ram, which utilized roughly 160% of cpu time spread across the two cores. The fs-uae emulation was running acceptably on this level of ix86 machine. 
+Latest notes;
+
+[30/03/23]
+
+*System snapshot without Amiga emulator & minimal customization -- see EYNBNYE.txt
+
+
+
+
+A way of looking at this, is from the 'turn a PC into a Amiga' (via emulation) viewpoint, and I found the minimum spec the host machine needed to be, was somewhere near intel P4 @ 2.8MHz with 512MB of ram, which utilized roughly 160% of cpu time spread across the two cores. The fs-uae emulation was running
+acceptably on this level of ix86 machine. 
 
 The creator of AmiDeb affirmed, there was a niche target machine, that one could install AmiDeb on, and ostensibly have a small footprint machine as akin to a set-top-box Amiga emulator, as that machine's only purpose in life, and if the right hardware was utilized, you might be able to enjoy Amiga gaming on a teevee display instead of a computer monitor.
 
